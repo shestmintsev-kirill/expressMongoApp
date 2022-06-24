@@ -31,11 +31,12 @@ Response: { count: number }
 ##### Get user by name
 ```
 Method: 'GET'
-Endpoint: '/users/{userName}'
+Endpoint: '/users/{userId}'
 Response: {
 	_id: string,
 	name: string,
 	age: number,
+	userId: string,
 	posts: Array<{ title: string }>
 }
 ```
@@ -51,6 +52,7 @@ Request payload: {
 }
 Response: {
 	_id: string,
+	userId: string,
 	name: string,
 	age: number,
 	posts: Array<{ title: string }>,
@@ -61,7 +63,7 @@ Response: {
 ##### Remove user by name
 ```
 Method: 'DELETE'
-Endpoint: '/users/{userName}'
+Endpoint: '/users/{userId}'
 Response: {
 	status: string
 }
