@@ -7,6 +7,8 @@ v16.15.1
 ```
 yarn install
 ```
+#### Project start
+
 ###### First terminal:
 ```
 
