@@ -1,32 +1,32 @@
-#Start backend app
+# Start backend app
 
-####Node version
+#### Node version
 v16.15.1
 
-####Project setup
+#### Project setup
 ```
 yarn install
 ```
-######First terminal:
+###### First terminal:
 ```
 
 yarn watch
 ```
-######Second terminal:
+###### Second terminal:
 ```
 yarn dev
 ```
 
-##Backend API docs
+## Backend API docs
 
-#####Get element count in the DB
+##### Get element count in the DB
 ```
 Method: 'GET'
 Endpoint: '/count'
 Response: { count: number }
 ```
 
-#####Get user by name
+##### Get user by name
 ```
 Method: 'GET'
 Endpoint: '/users/{userName}'
@@ -38,7 +38,7 @@ Response: {
 }
 ```
 
-#####Create user
+##### Create user
 ```
 Method: 'POST'
 Endpoint: '/users'
@@ -56,7 +56,7 @@ Response: {
 }
 ```
 
-#####Remove user by name
+##### Remove user by name
 ```
 Method: 'DELETE'
 Endpoint: '/users/{userName}'
