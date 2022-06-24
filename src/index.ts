@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import { v4 } from 'uuid'
 
 const app = express()
 const port = 3000
@@ -26,8 +27,8 @@ app.get('/count', async (req, res) => {
 	res.status(200).json({ count: usersCount })
 })
 
-app.get('/users/:userName', async (req, res) => {
-	const user = await UserCollection.findOne({ name: req.params.userName })
+app.get('/users/:userId', async (req, res) => {
+	const user = await UserCollection.findOne({ userId: req.params.userId })
 	user ? res.status(200).json(user) : res.status(400).json({ error: 'User not found' })
 })
 
@@ -35,19 +36,21 @@ app.post('/users', async (req, res) => {
 	if (req.body?.name) {
 		const repeatUser = await UserCollection.findOne({ name: req.body.name })
 		if (!repeatUser) {
-			await UserCollection.insertOne(req.body)
+			await UserCollection.insertOne({ ...req.body, userId: v4() })
 			const newUser = await UserCollection.findOne({ name: req.body.name })
 			res.status(200).json({ ...newUser, status: 'Create success' })
 		} else res.status(400).json({ error: 'User already exists' })
 	} else res.status(400).json({ error: 'field "name" not found' })
 })
 
-app.delete('/users/:userName', async (req, res) => {
-	const user = await UserCollection.findOne({ name: req.params?.userName })
+app.delete('/users/:userId', async (req, res) => {
+	const user = await UserCollection.findOne({ userId: req.params?.userId })
 	if (user) {
-		UserCollection.deleteOne({ name: user.name })
-		res.status(200).json({ status: `user "${user.name}" removed, user id: "${user._id}"` })
-	} else res.status(400).json({ status: `user "${req.params.userName}" not found` })
+		UserCollection.deleteOne({ userId: user.userId })
+		res.status(200).json({
+			status: `user "${user.name}" removed, user userId: "${user.userId}"`
+		})
+	} else res.status(400).json({ status: `userId "${req.params.userId}" not found` })
 })
 
 app.listen(port, () => {
